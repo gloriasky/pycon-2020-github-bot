@@ -149,11 +149,23 @@ async def on_pr_check_wip(*, pull_request, repository, **_kw):
                 'title':
                     '🤖 This PR is Work-in-progress: '
                     'It is incomplete',
+
                 'text':
                     'Debug info:\n'
                     f'is_wip_pr={is_wip_pr!s}\n'
                     f'pr_title={pr_title!s}\n'
                     f'wip_markers={wip_markers!r}',
+                'actions': [
+                    {
+                        'label': 'WIP it!',
+                        'description': 'Mark the PR as WIP',
+                        'identifier': 'wip',
+                    } if not is_wip_pr else {
+                        'label': 'UnWIP it!',
+                        'description': 'Remove WIP mark from the PR',
+                        'identifier': 'unwip',
+                    },
+                ],
                 'summary':
                     '🚧 Please do not merge this PR '
                     'as it is still under construction.'
