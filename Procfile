@@ -1,1 +1,1 @@
-web: python3 -m github-bot
+web: python3 -m github_bot
