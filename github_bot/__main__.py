@@ -120,20 +120,20 @@ async def on_pr_check_wip(*, pull_request, repository, **_kw):
             'status': 'completed',
             'conclusion': 'success' if not is_wip_pr else 'neutral',
             'completed_at': f'{datetime.utcnow().isoformat()}Z',
+            'actions': [
+                {
+                    'label': 'WIP it!',
+                    'description': 'Mark the PR as WIP',
+                    'identifier': 'wip',
+                } if not is_wip_pr else {
+                    'label': 'UnWIP it!',
+                    'description': 'Remove WIP mark from the PR',
+                    'identifier': 'unwip',
+                },
+            ],
             'output': {
                 'title':
                     '🤖 This PR is not Work-in-progress: Good to go',
-                'actions': [
-                    {
-                        'label': 'WIP it!',
-                        'description': 'Mark the PR as WIP',
-                        'identifier': 'wip',
-                    } if not is_wip_pr else {
-                        'label': 'UnWIP it!',
-                        'description': 'Remove WIP mark from the PR',
-                        'identifier': 'unwip',
-                    },
-                ],
                 'text':
                     'Debug info:\n'
                     f'is_wip_pr={is_wip_pr!s}\n'
@@ -155,17 +155,6 @@ async def on_pr_check_wip(*, pull_request, repository, **_kw):
                     f'is_wip_pr={is_wip_pr!s}\n'
                     f'pr_title={pr_title!s}\n'
                     f'wip_markers={wip_markers!r}',
-                'actions': [
-                    {
-                        'label': 'WIP it!',
-                        'description': 'Mark the PR as WIP',
-                        'identifier': 'wip',
-                    } if not is_wip_pr else {
-                        'label': 'UnWIP it!',
-                        'description': 'Remove WIP mark from the PR',
-                        'identifier': 'unwip',
-                    },
-                ],
                 'summary':
                     '🚧 Please do not merge this PR '
                     'as it is still under construction.'
