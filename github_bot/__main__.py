@@ -149,7 +149,6 @@ async def on_pr_check_wip(*, pull_request, repository, **_kw):
                 'title':
                     '🤖 This PR is Work-in-progress: '
                     'It is incomplete',
-
                 'text':
                     'Debug info:\n'
                     f'is_wip_pr={is_wip_pr!s}\n'
